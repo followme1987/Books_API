@@ -8,7 +8,8 @@ import (
 	"log"
 	"net/http"
 )
-func init(){
+
+func init() {
 	gotenv.Load()
 }
 
@@ -19,6 +20,10 @@ func main() {
 
 	router := mux.NewRouter()
 	router.HandleFunc("/books", ctl.GetBooks(db)).Methods("GET")
+	router.HandleFunc("/book/{id}", ctl.GetBookById(db)).Methods("GET")
+	router.HandleFunc("/book/{id}", ctl.DeleteBookById(db)).Methods("DELETE")
+	router.HandleFunc("/books", ctl.UpdateBooks(db)).Methods("PUT")
+	router.HandleFunc("/book", ctl.AddBook(db)).Methods("POST")
 
 	err := http.ListenAndServe(":50000", router)
 	if err != nil {
