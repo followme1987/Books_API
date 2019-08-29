@@ -19,6 +19,9 @@ func main() {
 	ctl := controller.Controller{}
 
 	router := mux.NewRouter()
+	router.NotFoundHandler = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.WriteHeader(http.StatusNotFound)
+	})
 	router.HandleFunc("/books", ctl.GetBooks(db)).Methods("GET")
 	router.HandleFunc("/book/{id}", ctl.GetBookById(db)).Methods("GET")
 	router.HandleFunc("/book/{id}", ctl.DeleteBookById(db)).Methods("DELETE")
