@@ -11,8 +11,6 @@ import (
 	"net/http/httptest"
 
 	"strings"
-
-	_ "github.com/lib/pq"
 )
 
 var _ = Describe("BookController", func() {
